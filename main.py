@@ -1,49 +1,44 @@
+#!/usr/bin/env python3
+"""
+EPIC-KITCHENS Dataset Processor
+
+This script processes EPIC-KITCHENS sparse annotation data and extracts:
+- RGB frames as JPG images
+- Instance segmentation masks as PNG images (one file per instance)
+
+Each class is stored in a separate directory, and multiple instances of the
+same class in a frame are saved as separate mask files.
+"""
+
+import argparse
 import json
 import os
-import zipfile
 import shutil
+import zipfile
+from collections import defaultdict
+
 import cv2
 import numpy as np
-from PIL import Image
 from tqdm import tqdm
-from collections import defaultdict
-import argparse
-
-# Number of videos to process (can be changed as needed)
-N_VIDEOS = 10
-
-# Setup directories
-data_dir = "data"
-output_rgb_frames_dir = os.path.join(data_dir, "rgb_frames")
-masks_dir = os.path.join(data_dir, "masks")
-os.makedirs(output_rgb_frames_dir, exist_ok=True)
-os.makedirs(masks_dir, exist_ok=True)
-
-# Setup annotation and RGB frame directories (source data)
-annotation_dir_root = "2v6cgv1x04ol22qp9rm9x2j6a7/GroundTruth-SparseAnnotations"
-annotation_dir = os.path.join(annotation_dir_root, "annotations")
-source_rgb_frames_dir = os.path.join(annotation_dir_root, "rgb_frames")
-mode = "train"
-
-annotation_dir = os.path.join(annotation_dir, mode)
-source_rgb_frames_dir = os.path.join(source_rgb_frames_dir, mode)
-
-# Temporary extraction directory
-temp_extract_dir = "data/temp_extract"
-os.makedirs(temp_extract_dir, exist_ok=True)
 
 
 def generate_masks_by_class(masks_info, input_resolution=(1920, 1080)):
     """
     Generate mask images grouped by class name.
-    Returns a dictionary: {class_name: [mask_image_1, mask_image_2, ...]}
-    Each instance is saved as a separate mask image with pixel value 255.
+
+    Args:
+        masks_info: List of annotation dictionaries containing segments and class names
+        input_resolution: Tuple of (width, height) for the output mask
+
+    Returns:
+        Dictionary mapping class_name to list of mask images (one per instance)
+        Each mask has pixel value 255 for the object and 0 for background
     """
     class_masks = defaultdict(list)
 
     # Group annotations by class name
     for entity in masks_info:
-        class_name = entity.get("name", "unknown")  # Get class name from annotation
+        class_name = entity.get("name", "unknown")
         class_masks[class_name].append(entity)
 
     # Generate separate mask for each instance
@@ -75,9 +70,24 @@ def generate_masks_by_class(masks_info, input_resolution=(1920, 1080)):
     return masks
 
 
-def process_video(annotation_file_path, video_id):
+def process_video(
+    annotation_file_path,
+    video_id,
+    source_rgb_frames_dir,
+    output_rgb_frames_dir,
+    masks_dir,
+    temp_extract_dir,
+):
     """
-    Process a single video: extract images and masks.
+    Process a single video: extract RGB frames and generate masks.
+
+    Args:
+        annotation_file_path: Path to the JSON annotation file
+        video_id: Video identifier (e.g., 'P01_01')
+        source_rgb_frames_dir: Directory containing source RGB frame zip files
+        output_rgb_frames_dir: Output directory for RGB frames
+        masks_dir: Output directory for masks
+        temp_extract_dir: Temporary directory for extraction
     """
     # Load annotation JSON
     with open(annotation_file_path, "r") as f:
@@ -117,16 +127,13 @@ def process_video(annotation_file_path, video_id):
     print(f"Processing {len(video_annotations)} frames for {video_id}...")
     for datapoint in tqdm(video_annotations, desc=f"Processing {video_id}"):
         image_name = datapoint["image"]["name"]
-        image_path = datapoint["image"]["image_path"]
         masks_info = datapoint["annotations"]
 
         # Find the RGB frame file
-        # image_path format: "P01_01/frame_0000000000.jpg"
         rgb_frame_path = os.path.join(video_temp_dir, image_name)
 
         # Some zip files might have a nested structure, try to find the file
         if not os.path.exists(rgb_frame_path):
-            # Search for the file in the extracted directory
             for root, dirs, files in os.walk(video_temp_dir):
                 if image_name in files:
                     rgb_frame_path = os.path.join(root, image_name)
@@ -170,39 +177,115 @@ def process_video(annotation_file_path, video_id):
     print(f"Completed processing {video_id}")
 
 
-# Main processing loop
-annotation_file_list = sorted(os.listdir(annotation_dir))
+def main():
+    """Main processing function."""
+    parser = argparse.ArgumentParser(
+        description="Process EPIC-KITCHENS sparse annotations and extract RGB frames with masks.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
 
-# Filter only JSON files and limit to N_VIDEOS
-json_files = [f for f in annotation_file_list if f.endswith(".json")]
-files_to_process = json_files[:N_VIDEOS]
+    parser.add_argument(
+        "--annotation-root",
+        type=str,
+        default="2v6cgv1x04ol22qp9rm9x2j6a7/GroundTruth-SparseAnnotations",
+        help="Root directory of sparse annotations",
+    )
 
-print(f"\nProcessing {len(files_to_process)} out of {len(json_files)} total videos")
-print(f"(Set N_VIDEOS to change this limit)\n")
+    parser.add_argument(
+        "--mode",
+        type=str,
+        default="train",
+        choices=["train", "test"],
+        help="Dataset mode (train or test)",
+    )
 
-for annotation_file in files_to_process:
-    video_id = annotation_file.replace(".json", "")
-    annotation_file_path = os.path.join(annotation_dir, annotation_file)
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default="data",
+        help="Output directory for processed data",
+    )
 
-    print(f"\n{'='*60}")
-    print(f"Processing video: {video_id}")
-    print(f"{'='*60}")
+    parser.add_argument(
+        "--n-videos",
+        type=int,
+        default=10,
+        help="Number of videos to process (set to -1 for all videos)",
+    )
 
-    try:
-        process_video(annotation_file_path, video_id)
-    except Exception as e:
-        print(f"Error processing {video_id}: {str(e)}")
-        import traceback
+    parser.add_argument(
+        "--temp-dir",
+        type=str,
+        default="data/temp_extract",
+        help="Temporary directory for extraction",
+    )
 
-        traceback.print_exc()
-        continue
+    args = parser.parse_args()
 
-# Clean up temporary directory
-if os.path.exists(temp_extract_dir):
-    shutil.rmtree(temp_extract_dir)
+    # Setup directories
+    output_rgb_frames_dir = os.path.join(args.output_dir, "rgb_frames")
+    masks_dir = os.path.join(args.output_dir, "masks")
+    os.makedirs(output_rgb_frames_dir, exist_ok=True)
+    os.makedirs(masks_dir, exist_ok=True)
+    os.makedirs(args.temp_dir, exist_ok=True)
 
-print("\n" + "=" * 60)
-print("All videos processed!")
-print(f"RGB frames saved to: {output_rgb_frames_dir}")
-print(f"Masks saved to: {masks_dir}")
-print("=" * 60)
+    # Setup annotation and RGB frame directories (source data)
+    annotation_dir = os.path.join(args.annotation_root, "annotations", args.mode)
+    source_rgb_frames_dir = os.path.join(args.annotation_root, "rgb_frames", args.mode)
+
+    # Get list of annotation files
+    annotation_file_list = sorted(os.listdir(annotation_dir))
+    json_files = [f for f in annotation_file_list if f.endswith(".json")]
+
+    # Determine files to process
+    if args.n_videos == -1:
+        files_to_process = json_files
+    else:
+        files_to_process = json_files[: args.n_videos]
+
+    print("\n" + "=" * 60)
+    print("EPIC-KITCHENS Dataset Processor")
+    print("=" * 60)
+    print(f"Mode: {args.mode}")
+    print(f"Processing {len(files_to_process)} out of {len(json_files)} total videos")
+    print(f"Output directory: {args.output_dir}")
+    print("=" * 60 + "\n")
+
+    # Process each video
+    for annotation_file in files_to_process:
+        video_id = annotation_file.replace(".json", "")
+        annotation_file_path = os.path.join(annotation_dir, annotation_file)
+
+        print(f"\n{'='*60}")
+        print(f"Processing video: {video_id}")
+        print(f"{'='*60}")
+
+        try:
+            process_video(
+                annotation_file_path,
+                video_id,
+                source_rgb_frames_dir,
+                output_rgb_frames_dir,
+                masks_dir,
+                args.temp_dir,
+            )
+        except Exception as e:
+            print(f"Error processing {video_id}: {str(e)}")
+            import traceback
+
+            traceback.print_exc()
+            continue
+
+    # Clean up temporary directory
+    if os.path.exists(args.temp_dir):
+        shutil.rmtree(args.temp_dir)
+
+    print("\n" + "=" * 60)
+    print("Processing Complete!")
+    print(f"RGB frames saved to: {output_rgb_frames_dir}")
+    print(f"Masks saved to: {masks_dir}")
+    print("=" * 60)
+
+
+if __name__ == "__main__":
+    main()
