@@ -1,0 +1,702 @@
+[
+  {
+    "image_id": "P02_01_0",
+    "instruction": "walk to sink",
+    "video_id": "P02_01",
+    "start_frame": 138,
+    "stop_frame": 240
+  },
+  {
+    "image_id": "P02_01_1",
+    "instruction": "put plate",
+    "video_id": "P02_01",
+    "start_frame": 255,
+    "stop_frame": 363
+  },
+  {
+    "image_id": "P02_01_10",
+    "instruction": "pick mug",
+    "video_id": "P02_01",
+    "start_frame": 1421,
+    "stop_frame": 1564
+  },
+  {
+    "image_id": "P02_01_11",
+    "instruction": "close cupboard",
+    "video_id": "P02_01",
+    "start_frame": 1543,
+    "stop_frame": 1599
+  },
+  {
+    "image_id": "P02_01_12",
+    "instruction": "put cup",
+    "video_id": "P02_01",
+    "start_frame": 1722,
+    "stop_frame": 1809
+  },
+  {
+    "image_id": "P02_01_13",
+    "instruction": "close cupboard",
+    "video_id": "P02_01",
+    "start_frame": 1933,
+    "stop_frame": 1992
+  },
+  {
+    "image_id": "P02_01_14",
+    "instruction": "pick plate",
+    "video_id": "P02_01",
+    "start_frame": 2084,
+    "stop_frame": 2204
+  },
+  {
+    "image_id": "P02_01_15",
+    "instruction": "close cupboard",
+    "video_id": "P02_01",
+    "start_frame": 2197,
+    "stop_frame": 2268
+  },
+  {
+    "image_id": "P02_01_16",
+    "instruction": "put plate down",
+    "video_id": "P02_01",
+    "start_frame": 2424,
+    "stop_frame": 2482
+  },
+  {
+    "image_id": "P02_01_17",
+    "instruction": "pick cereal",
+    "video_id": "P02_01",
+    "start_frame": 2512,
+    "stop_frame": 2624
+  },
+  {
+    "image_id": "P02_01_18",
+    "instruction": "remove bag from cereal",
+    "video_id": "P02_01",
+    "start_frame": 2630,
+    "stop_frame": 2724
+  },
+  {
+    "image_id": "P02_01_19",
+    "instruction": "open bag",
+    "video_id": "P02_01",
+    "start_frame": 2845,
+    "stop_frame": 2892
+  },
+  {
+    "image_id": "P02_01_2",
+    "instruction": "put plate on the side",
+    "video_id": "P02_01",
+    "start_frame": 369,
+    "stop_frame": 455
+  },
+  {
+    "image_id": "P02_01_20",
+    "instruction": "put cereal in plate",
+    "video_id": "P02_01",
+    "start_frame": 2898,
+    "stop_frame": 3210
+  },
+  {
+    "image_id": "P02_01_21",
+    "instruction": "put cereal in plate",
+    "video_id": "P02_01",
+    "start_frame": 2961,
+    "stop_frame": 3233
+  },
+  {
+    "image_id": "P02_01_22",
+    "instruction": "close bag",
+    "video_id": "P02_01",
+    "start_frame": 3223,
+    "stop_frame": 3296
+  },
+  {
+    "image_id": "P02_01_23",
+    "instruction": "return bag into the cereal box",
+    "video_id": "P02_01",
+    "start_frame": 3302,
+    "stop_frame": 3443
+  },
+  {
+    "image_id": "P02_01_24",
+    "instruction": "put cereal box away",
+    "video_id": "P02_01",
+    "start_frame": 3449,
+    "stop_frame": 3523
+  },
+  {
+    "image_id": "P02_01_25",
+    "instruction": "press button",
+    "video_id": "P02_01",
+    "start_frame": 3615,
+    "stop_frame": 3706
+  },
+  {
+    "image_id": "P02_01_26",
+    "instruction": "open fridge",
+    "video_id": "P02_01",
+    "start_frame": 3868,
+    "stop_frame": 3952
+  },
+  {
+    "image_id": "P02_01_27",
+    "instruction": "pick up milk",
+    "video_id": "P02_01",
+    "start_frame": 3958,
+    "stop_frame": 4070
+  },
+  {
+    "image_id": "P02_01_28",
+    "instruction": "close fridge",
+    "video_id": "P02_01",
+    "start_frame": 4053,
+    "stop_frame": 4147
+  },
+  {
+    "image_id": "P02_01_29",
+    "instruction": "put milk into cup",
+    "video_id": "P02_01",
+    "start_frame": 4239,
+    "stop_frame": 4370
+  },
+  {
+    "image_id": "P02_01_3",
+    "instruction": "pick filter",
+    "video_id": "P02_01",
+    "start_frame": 599,
+    "stop_frame": 717
+  },
+  {
+    "image_id": "P02_01_30",
+    "instruction": "put milk into plate",
+    "video_id": "P02_01",
+    "start_frame": 4376,
+    "stop_frame": 4618
+  },
+  {
+    "image_id": "P02_01_31",
+    "instruction": "close milk",
+    "video_id": "P02_01",
+    "start_frame": 4617,
+    "stop_frame": 4672
+  },
+  {
+    "image_id": "P02_01_32",
+    "instruction": "open fridge",
+    "video_id": "P02_01",
+    "start_frame": 4756,
+    "stop_frame": 4819
+  },
+  {
+    "image_id": "P02_01_33",
+    "instruction": "return milk",
+    "video_id": "P02_01",
+    "start_frame": 4813,
+    "stop_frame": 4891
+  },
+  {
+    "image_id": "P02_01_34",
+    "instruction": "close fridge",
+    "video_id": "P02_01",
+    "start_frame": 4892,
+    "stop_frame": 4963
+  },
+  {
+    "image_id": "P02_01_35",
+    "instruction": "open drawer",
+    "video_id": "P02_01",
+    "start_frame": 4942,
+    "stop_frame": 4975
+  },
+  {
+    "image_id": "P02_01_36",
+    "instruction": "pick up two spoons",
+    "video_id": "P02_01",
+    "start_frame": 4981,
+    "stop_frame": 5115
+  },
+  {
+    "image_id": "P02_01_37",
+    "instruction": "put spoon into the cereal plate",
+    "video_id": "P02_01",
+    "start_frame": 5211,
+    "stop_frame": 5369
+  },
+  {
+    "image_id": "P02_01_38",
+    "instruction": "press button",
+    "video_id": "P02_01",
+    "start_frame": 5440,
+    "stop_frame": 5510
+  },
+  {
+    "image_id": "P02_01_39",
+    "instruction": "open sugar jar",
+    "video_id": "P02_01",
+    "start_frame": 5520,
+    "stop_frame": 5599
+  },
+  {
+    "image_id": "P02_01_4",
+    "instruction": "open",
+    "video_id": "P02_01",
+    "start_frame": 729,
+    "stop_frame": 799
+  },
+  {
+    "image_id": "P02_01_40",
+    "instruction": "scoop sugar",
+    "video_id": "P02_01",
+    "start_frame": 5653,
+    "stop_frame": 5737
+  },
+  {
+    "image_id": "P02_01_41",
+    "instruction": "put sugar into the coffee",
+    "video_id": "P02_01",
+    "start_frame": 5677,
+    "stop_frame": 5761
+  },
+  {
+    "image_id": "P02_01_42",
+    "instruction": "and close sugar jar",
+    "video_id": "P02_01",
+    "start_frame": 5813,
+    "stop_frame": 5939
+  },
+  {
+    "image_id": "P02_01_43",
+    "instruction": "stir sugar",
+    "video_id": "P02_01",
+    "start_frame": 5922,
+    "stop_frame": 6166
+  },
+  {
+    "image_id": "P02_01_44",
+    "instruction": "stir the coffee in the mug",
+    "video_id": "P02_01",
+    "start_frame": 6168,
+    "stop_frame": 6367
+  },
+  {
+    "image_id": "P02_01_45",
+    "instruction": "pick up mug",
+    "video_id": "P02_01",
+    "start_frame": 6568,
+    "stop_frame": 6735
+  },
+  {
+    "image_id": "P02_01_47",
+    "instruction": "empty water",
+    "video_id": "P02_01",
+    "start_frame": 6720,
+    "stop_frame": 6805
+  },
+  {
+    "image_id": "P02_01_48",
+    "instruction": "open sink",
+    "video_id": "P02_01",
+    "start_frame": 6890,
+    "stop_frame": 6945
+  },
+  {
+    "image_id": "P02_01_49",
+    "instruction": "close sink",
+    "video_id": "P02_01",
+    "start_frame": 6992,
+    "stop_frame": 7022
+  },
+  {
+    "image_id": "P02_01_5",
+    "instruction": "put water into the coffee machine",
+    "video_id": "P02_01",
+    "start_frame": 798,
+    "stop_frame": 995
+  },
+  {
+    "image_id": "P02_01_52",
+    "instruction": "put cup",
+    "video_id": "P02_01",
+    "start_frame": 7291,
+    "stop_frame": 7365
+  },
+  {
+    "image_id": "P02_01_53",
+    "instruction": "pick up coffee pot",
+    "video_id": "P02_01",
+    "start_frame": 7361,
+    "stop_frame": 7541
+  },
+  {
+    "image_id": "P02_01_54",
+    "instruction": "open the coffee machine",
+    "video_id": "P02_01",
+    "start_frame": 7562,
+    "stop_frame": 7607
+  },
+  {
+    "image_id": "P02_01_55",
+    "instruction": "put coffee pot",
+    "video_id": "P02_01",
+    "start_frame": 7613,
+    "stop_frame": 7660
+  },
+  {
+    "image_id": "P02_01_56",
+    "instruction": "close coffee machine",
+    "video_id": "P02_01",
+    "start_frame": 7666,
+    "stop_frame": 7726
+  },
+  {
+    "image_id": "P02_01_57",
+    "instruction": "put mug",
+    "video_id": "P02_01",
+    "start_frame": 7732,
+    "stop_frame": 7830
+  },
+  {
+    "image_id": "P02_01_58",
+    "instruction": "press button",
+    "video_id": "P02_01",
+    "start_frame": 7864,
+    "stop_frame": 7923
+  },
+  {
+    "image_id": "P02_01_59",
+    "instruction": "open fridge",
+    "video_id": "P02_01",
+    "start_frame": 8102,
+    "stop_frame": 8177
+  },
+  {
+    "image_id": "P02_01_6",
+    "instruction": "close coffee machine",
+    "video_id": "P02_01",
+    "start_frame": 1001,
+    "stop_frame": 1039
+  },
+  {
+    "image_id": "P02_01_60",
+    "instruction": "pick up milk",
+    "video_id": "P02_01",
+    "start_frame": 8168,
+    "stop_frame": 8258
+  },
+  {
+    "image_id": "P02_01_61",
+    "instruction": "close fridge",
+    "video_id": "P02_01",
+    "start_frame": 8222,
+    "stop_frame": 8263
+  },
+  {
+    "image_id": "P02_01_62",
+    "instruction": "put milk in cup",
+    "video_id": "P02_01",
+    "start_frame": 8446,
+    "stop_frame": 8587
+  },
+  {
+    "image_id": "P02_01_63",
+    "instruction": "close milk",
+    "video_id": "P02_01",
+    "start_frame": 8597,
+    "stop_frame": 8716
+  },
+  {
+    "image_id": "P02_01_64",
+    "instruction": "open fridge",
+    "video_id": "P02_01",
+    "start_frame": 8787,
+    "stop_frame": 8832
+  },
+  {
+    "image_id": "P02_01_65",
+    "instruction": "put milk",
+    "video_id": "P02_01",
+    "start_frame": 8838,
+    "stop_frame": 8884
+  },
+  {
+    "image_id": "P02_01_66",
+    "instruction": "close fridge",
+    "video_id": "P02_01",
+    "start_frame": 8899,
+    "stop_frame": 8944
+  },
+  {
+    "image_id": "P02_01_67",
+    "instruction": "hold sugar jar",
+    "video_id": "P02_01",
+    "start_frame": 9108,
+    "stop_frame": 9167
+  },
+  {
+    "image_id": "P02_01_68",
+    "instruction": "open sugar jar",
+    "video_id": "P02_01",
+    "start_frame": 9167,
+    "stop_frame": 9225
+  },
+  {
+    "image_id": "P02_01_69",
+    "instruction": "scoop sugar",
+    "video_id": "P02_01",
+    "start_frame": 9355,
+    "stop_frame": 9430
+  },
+  {
+    "image_id": "P02_01_7",
+    "instruction": "press button",
+    "video_id": "P02_01",
+    "start_frame": 1045,
+    "stop_frame": 1106
+  },
+  {
+    "image_id": "P02_01_70",
+    "instruction": "put sugar",
+    "video_id": "P02_01",
+    "start_frame": 9445,
+    "stop_frame": 9504
+  },
+  {
+    "image_id": "P02_01_71",
+    "instruction": "stir coffee mug",
+    "video_id": "P02_01",
+    "start_frame": 9487,
+    "stop_frame": 9568
+  },
+  {
+    "image_id": "P02_01_72",
+    "instruction": "close sugar jar",
+    "video_id": "P02_01",
+    "start_frame": 9568,
+    "stop_frame": 9733
+  },
+  {
+    "image_id": "P02_01_73",
+    "instruction": "wait for coffee",
+    "video_id": "P02_01",
+    "start_frame": 9807,
+    "stop_frame": 10017
+  },
+  {
+    "image_id": "P02_01_74",
+    "instruction": "pick up water filter",
+    "video_id": "P02_01",
+    "start_frame": 10043,
+    "stop_frame": 10081
+  },
+  {
+    "image_id": "P02_01_75",
+    "instruction": "open coffee machine",
+    "video_id": "P02_01",
+    "start_frame": 10178,
+    "stop_frame": 10223
+  },
+  {
+    "image_id": "P02_01_76",
+    "instruction": "fill water into the coffee machine",
+    "video_id": "P02_01",
+    "start_frame": 10244,
+    "stop_frame": 10413
+  },
+  {
+    "image_id": "P02_01_77",
+    "instruction": "close the lid",
+    "video_id": "P02_01",
+    "start_frame": 10419,
+    "stop_frame": 10463
+  },
+  {
+    "image_id": "P02_01_78",
+    "instruction": "put water filter",
+    "video_id": "P02_01",
+    "start_frame": 10496,
+    "stop_frame": 10643
+  },
+  {
+    "image_id": "P02_01_79",
+    "instruction": "press button",
+    "video_id": "P02_01",
+    "start_frame": 10743,
+    "stop_frame": 10905
+  },
+  {
+    "image_id": "P02_01_8",
+    "instruction": "put water filter down",
+    "video_id": "P02_01",
+    "start_frame": 1165,
+    "stop_frame": 1217
+  },
+  {
+    "image_id": "P02_01_80",
+    "instruction": "wait for coffee",
+    "video_id": "P02_01",
+    "start_frame": 10789,
+    "stop_frame": 11283
+  },
+  {
+    "image_id": "P02_01_81",
+    "instruction": "press button",
+    "video_id": "P02_01",
+    "start_frame": 10808,
+    "stop_frame": 10952
+  },
+  {
+    "image_id": "P02_01_82",
+    "instruction": "stir coffee",
+    "video_id": "P02_01",
+    "start_frame": 11328,
+    "stop_frame": 11487
+  },
+  {
+    "image_id": "P02_01_84",
+    "instruction": "pick up spoon",
+    "video_id": "P02_01",
+    "start_frame": 11901,
+    "stop_frame": 11937
+  },
+  {
+    "image_id": "P02_01_85",
+    "instruction": "put spoon in sink",
+    "video_id": "P02_01",
+    "start_frame": 12018,
+    "stop_frame": 12088
+  },
+  {
+    "image_id": "P02_01_86",
+    "instruction": "hold mug",
+    "video_id": "P02_01",
+    "start_frame": 12226,
+    "stop_frame": 12303
+  },
+  {
+    "image_id": "P02_01_87",
+    "instruction": "keep holding mug",
+    "video_id": "P02_01",
+    "start_frame": 12334,
+    "stop_frame": 12702
+  },
+  {
+    "image_id": "P02_01_88",
+    "instruction": "keep holding mug",
+    "video_id": "P02_01",
+    "start_frame": 12741,
+    "stop_frame": 13481
+  },
+  {
+    "image_id": "P02_01_89",
+    "instruction": "press button",
+    "video_id": "P02_01",
+    "start_frame": 13487,
+    "stop_frame": 13545
+  },
+  {
+    "image_id": "P02_01_9",
+    "instruction": "open cupboard",
+    "video_id": "P02_01",
+    "start_frame": 1336,
+    "stop_frame": 1453
+  },
+  {
+    "image_id": "P02_01_90",
+    "instruction": "pick up mug",
+    "video_id": "P02_01",
+    "start_frame": 13632,
+    "stop_frame": 13738
+  },
+  {
+    "image_id": "P02_02_0",
+    "instruction": "open the bin",
+    "video_id": "P02_02",
+    "start_frame": 129,
+    "stop_frame": 235
+  },
+  {
+    "image_id": "P02_02_1",
+    "instruction": "pick up the bag",
+    "video_id": "P02_02",
+    "start_frame": 267,
+    "stop_frame": 409
+  },
+  {
+    "image_id": "P02_02_10",
+    "instruction": "open the new bag",
+    "video_id": "P02_02",
+    "start_frame": 1746,
+    "stop_frame": 1841
+  },
+  {
+    "image_id": "P02_02_11",
+    "instruction": "put bag into the bin",
+    "video_id": "P02_02",
+    "start_frame": 1956,
+    "stop_frame": 2050
+  },
+  {
+    "image_id": "P02_02_12",
+    "instruction": "stretch bag",
+    "video_id": "P02_02",
+    "start_frame": 2039,
+    "stop_frame": 2185
+  },
+  {
+    "image_id": "P02_02_13",
+    "instruction": "close the trash bin",
+    "video_id": "P02_02",
+    "start_frame": 2191,
+    "stop_frame": 2395
+  },
+  {
+    "image_id": "P02_02_14",
+    "instruction": "put gloves on both hands",
+    "video_id": "P02_02",
+    "start_frame": 2503,
+    "stop_frame": 2718
+  },
+  {
+    "image_id": "P02_02_15",
+    "instruction": "pick up sponge",
+    "video_id": "P02_02",
+    "start_frame": 2724,
+    "stop_frame": 2780
+  },
+  {
+    "image_id": "P02_02_16",
+    "instruction": "open the tap",
+    "video_id": "P02_02",
+    "start_frame": 2798,
+    "stop_frame": 2948
+  },
+  {
+    "image_id": "P02_02_17",
+    "instruction": "move things",
+    "video_id": "P02_02",
+    "start_frame": 3001,
+    "stop_frame": 3199
+  },
+  {
+    "image_id": "P02_02_18",
+    "instruction": "put liquid",
+    "video_id": "P02_02",
+    "start_frame": 3205,
+    "stop_frame": 3290
+  },
+  {
+    "image_id": "P02_02_19",
+    "instruction": "pick up knife",
+    "video_id": "P02_02",
+    "start_frame": 3349,
+    "stop_frame": 3403
+  },
+  {
+    "image_id": "P02_02_2",
+    "instruction": "tie the bag",
+    "video_id": "P02_02",
+    "start_frame": 311,
+    "stop_frame": 508
+  }
+]

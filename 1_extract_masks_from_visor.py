@@ -77,6 +77,7 @@ def process_video(
     output_rgb_frames_dir,
     masks_dir,
     temp_extract_dir,
+    use_class_name="right hand",
 ):
     """
     Process a single video: extract RGB frames and generate masks.
@@ -153,6 +154,8 @@ def process_video(
         # Save each class mask in its respective directory
         mask_name_base = image_name.replace(".jpg", "")
         for class_name, instance_masks in class_masks.items():
+            if use_class_name and class_name != use_class_name:
+                continue
             # Create class directory if it doesn't exist
             class_mask_dir = os.path.join(video_masks_dir, class_name)
             os.makedirs(class_mask_dir, exist_ok=True)
@@ -202,14 +205,14 @@ def main():
     parser.add_argument(
         "--output-dir",
         type=str,
-        default="data",
+        default="data_1",
         help="Output directory for processed data",
     )
 
     parser.add_argument(
         "--n-videos",
         type=int,
-        default=10,
+        default=100,
         help="Number of videos to process (set to -1 for all videos)",
     )
 
