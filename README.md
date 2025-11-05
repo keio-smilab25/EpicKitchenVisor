@@ -1,168 +1,108 @@
-# EPIC-KITCHENS Dataset Processor
+# EPIC-KITCHENS データセット処理ツール
 
-This tool processes EPIC-KITCHENS sparse annotation data and extracts RGB frames along with instance segmentation masks.
+EPIC-KITCHENS データセットと VISOR アノテーションを処理し、インストラクションベースの RGB フレームとセグメンテーションマスクを抽出します。
 
-## Features
+## 概要
 
-- Extracts RGB frames from video zip archives
-- Generates instance segmentation masks organized by class
-- Separates multiple instances of the same class into individual mask files
-- Masks use pixel value 255 (white) for easy visualization
-- Supports both train and test datasets
+2 段階のパイプライン:
 
-## Requirements
+1. `0_split_epic_kitchencs.py`: EPIC-KITCHENS からインストラクションベースの画像を抽出
+2. `1_parse_visor_dataset.py`: VISOR マスクをインストラクションフレームと統合
 
-```bash
-pip install opencv-python numpy tqdm
-```
+**対象スプリット**: 現在は train スプリットのみ。コード内のパス(`annotation_path`, `visor_annotations_dir`)を書き換えることで validation/test スプリットにも対応可能。
 
-Or using uv:
+## セットアップ
 
 ```bash
-uv add opencv-python numpy tqdm
+uv sync
 ```
 
-## Usage
+## 必要なデータセット
 
-### Basic Usage
+- **EPIC-KITCHENS**: https://github.com/epic-kitchens/epic-kitchens-download-scripts
+- **VISOR**: https://data.bris.ac.uk/data/dataset/2v6cgv1x04ol22qp9rm9x2j6a7 ([詳細](https://epic-kitchens.github.io/VISOR/))
+- **アノテーション CSV**: https://github.com/epic-kitchens/epic-kitchens-100-annotations
 
-Process 10 videos from the training set:
+### データ配置
+
+ダウンロードしたデータセットを以下のように配置してください:
+
+```
+/mnt/disk3/EpicKitchen/
+├── EPIC-KITCHENS/
+│   └── {participant_id}/
+│       └── rgb_frames/
+│           └── {video_id}/
+│               ├── frame_0000000000.jpg
+│               ├── frame_0000000001.jpg
+│               └── ...
+├── visor_data/
+│   └── GroundTruth-SparseAnnotations/
+│       └── annotations/
+│           └── train/
+│               ├── P01_01.json
+│               ├── P01_03.json
+│               └── ...
+├── epic-kitchens-100-annotations/
+│   ├── EPIC_100_train.csv
+│   ├── EPIC_100_validation.csv
+│   └── EPIC_100_test.csv
+└── data/  # 出力先(自動生成)
+```
+
+## 使用方法
+
+### ステップ 1: フレーム抽出
 
 ```bash
-python main.py
+python 0_split_epic_kitchencs.py
 ```
 
-### Process All Videos
+- `EPIC_100_train.csv`から各インストラクションのフレームを抽出
+- 出力: `data/images/{instruction_id}/`, `data/epic_kitchens_100_train.json`
+
+### ステップ 2: マスク統合
 
 ```bash
-python main.py --n-videos -1
+python 1_parse_visor_dataset.py
 ```
 
-### Process Test Set
+- VISOR アノテーションとマッチングしてマスクを生成
+- デフォルト: `epic_annotation["noun"]`のオブジェクトを抽出(1_parse_visor_dataset.py:59)
+- 出力: `data/sparse_masks/{instruction_id}/`
 
-```bash
-python main.py --mode test --n-videos 5
+**カスタマイズ例**:
+
+```python
+# 1_parse_visor_dataset.py:59 を変更
+target_object = "left hand"  # 左手のマスクを抽出
 ```
 
-### Custom Output Directory
+## 出力フォーマット
 
-```bash
-python main.py --output-dir ./my_output --n-videos 20
+### JSON 構造
+
+```json
+{
+  "id": 0,
+  "video_id": "P01_01",
+  "instruction": "open door",
+  "noun": "door",
+  "image_dir": "data/images/0",
+  "sparse_mask_path": ["data/sparse_masks/0/0.png", ...]
+}
 ```
 
-## Command Line Arguments
+### マスク
 
-| Argument | Type | Default | Description |
-|----------|------|---------|-------------|
-| `--annotation-root` | str | `2v6cgv1x04ol22qp9rm9x2j6a7/GroundTruth-SparseAnnotations` | Root directory of sparse annotations |
-| `--mode` | str | `train` | Dataset mode (`train` or `test`) |
-| `--output-dir` | str | `data` | Output directory for processed data |
-| `--n-videos` | int | `10` | Number of videos to process (`-1` for all) |
-| `--temp-dir` | str | `data/temp_extract` | Temporary directory for extraction |
+- グレースケール PNG (1920x1080)
+- 背景: 0, オブジェクト: 255
 
-## Output Structure
+## 注意事項
 
-```
-output-dir/
-    rgb_frames/
-        {video_id}/
-            {video_id}_frame_0000000000.jpg
-            {video_id}_frame_0000000001.jpg
-            ...
-    masks/
-        {video_id}/
-            {class_name_1}/
-                {video_id}_frame_0000000000.png
-                {video_id}_frame_0000000001.png
-                ...
-            {class_name_2}/
-                {video_id}_frame_0000000000.png
-                {video_id}_frame_0000000000_instance_0.png  # Multiple instances
-                {video_id}_frame_0000000000_instance_1.png
-                ...
-            ...
-```
+- VISOR はスパースアノテーション(全フレームにはない)
+- `sparse_mask_path`は`image_dir`より少ない場合がある
 
-### Example
+## ライセンス
 
-```
-data/
-    rgb_frames/
-        P01_01/
-            P01_01_frame_0000000140.jpg
-            P01_01_frame_0000000298.jpg
-            ...
-        P01_03/
-            ...
-    masks/
-        P01_01/
-            left hand/
-                P01_01_frame_0000000965.png
-                P01_01_frame_0000001017.png
-                ...
-            right hand/
-                ...
-            knife/
-                ...
-            ...
-        P01_03/
-            ...
-```
-
-## Mask Format
-
-- **Type**: Grayscale PNG images (8-bit)
-- **Resolution**: 1920x1080 pixels
-- **Pixel Values**:
-  - `0`: Background (black)
-  - `255`: Object instance (white)
-- **Multiple Instances**: When a frame contains multiple instances of the same class, each instance is saved as a separate mask file with `_instance_{idx}` suffix
-
-## Dataset Information
-
-This tool processes the EPIC-KITCHENS dataset sparse annotations:
-
-- **Original Dataset**: [EPIC-KITCHENS](https://epic-kitchens.github.io/)
-- **Annotation Type**: Sparse instance segmentation annotations
-- **Resolution**: 1920x1080 pixels
-- **Classes**: Various kitchen objects (hands, utensils, ingredients, etc.)
-
-## Notes
-
-- The script automatically handles nested directory structures in the RGB frame zip files
-- Empty masks (no annotations) are not saved
-- Temporary extraction files are automatically cleaned up after processing
-- Progress bars show real-time processing status
-
-## Example Workflow
-
-1. **Process a small subset for testing**:
-   ```bash
-   python main.py --n-videos 2
-   ```
-
-2. **Check the output**:
-   ```bash
-   tree -L 3 data/
-   ```
-
-3. **Process all videos**:
-   ```bash
-   python main.py --n-videos -1
-   ```
-
-## Troubleshooting
-
-### Missing RGB frames
-If you see warnings about missing RGB frames, ensure:
-- The annotation root directory path is correct
-- RGB frame zip files exist in `{annotation-root}/rgb_frames/{mode}/{participant_id}/`
-
-### Memory issues
-If processing all videos causes memory issues:
-- Process videos in smaller batches using `--n-videos`
-- Clean up the output directory between batches if needed
-
-## License
-
-This tool is provided as-is for processing EPIC-KITCHENS data. Please refer to the [EPIC-KITCHENS dataset license](https://epic-kitchens.github.io/) for usage terms.
+[EPIC-KITCHENS](https://epic-kitchens.github.io/) と [VISOR](https://epic-kitchens.github.io/VISOR/) のライセンスに従ってください。
