@@ -100,6 +100,7 @@ target_object = "left hand"  # 左手のマスクを抽出
 
 ## 注意事項
 
+- **FPS**: EPIC-KITCHENS のビデオは 60 FPS で記録されています
 - VISOR はスパースアノテーション(全フレームにはない)
 - `sparse_mask_path`は`image_dir`より少ない場合がある
 
