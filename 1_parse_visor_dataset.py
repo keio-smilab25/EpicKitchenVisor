@@ -41,7 +41,9 @@ def build_epic_annotations_by_video(epic_annotations_list):
     """
     epic_annotations_by_video = {}
 
-    for list_index, annotation in enumerate(tqdm(epic_annotations_list, desc="Building EPIC annotations dict")):
+    for list_index, annotation in enumerate(
+        tqdm(epic_annotations_list, desc="Building EPIC annotations dict")
+    ):
         # Add original index for later reference
         annotation["original_index"] = list_index
 
@@ -173,7 +175,7 @@ def process_visor_annotations(
     epic_annotations_by_video,
     output_masks_dir,
     image_width,
-    image_height
+    image_height,
 ):
     """
     Process VISOR annotations and generate masks for EPIC-KITCHENS instructions.
@@ -191,7 +193,9 @@ def process_visor_annotations(
     visor_annotation_files = [f for f in visor_annotation_files if f.endswith(".json")]
 
     # Process each VISOR video annotation file
-    for visor_filename in tqdm(visor_annotation_files, desc="Processing VISOR annotations"):
+    for visor_filename in tqdm(
+        visor_annotation_files, desc="Processing VISOR annotations"
+    ):
         # Load VISOR annotation file
         video_id = visor_filename.replace(".json", "")
         visor_file_path = os.path.join(visor_annotations_dir, visor_filename)
@@ -201,13 +205,13 @@ def process_visor_annotations(
         visor_frame_annotations = visor_data["video_annotations"]
         for visor_frame_annotation in visor_frame_annotations:
             # Extract frame number
-            frame_number = extract_frame_number_from_visor_annotation(visor_frame_annotation)
+            frame_number = extract_frame_number_from_visor_annotation(
+                visor_frame_annotation
+            )
 
             # Find corresponding EPIC-KITCHENS instruction
             epic_annotation = find_instruction_for_frame(
-                epic_annotations_by_video,
-                video_id,
-                frame_number
+                epic_annotations_by_video, video_id, frame_number
             )
 
             if epic_annotation is None:
@@ -216,13 +220,14 @@ def process_visor_annotations(
             # Extract instruction information
             instruction_id = epic_annotation["id"]
             instruction_start_frame = epic_annotation["start_frame"]
-            target_object_name = epic_annotation["noun"]  # <-- Change this to extract different objects
+            target_object_name = epic_annotation[
+                "noun"
+            ]  # <-- Change this to extract different objects
             original_list_index = epic_annotation["original_index"]
 
             # Find polygons for target object
             polygon_segments = find_target_object_polygons(
-                visor_frame_annotation,
-                target_object_name
+                visor_frame_annotation, target_object_name
             )
 
             if polygon_segments is None:
@@ -235,11 +240,11 @@ def process_visor_annotations(
             mask = create_mask_from_polygons(numpy_polygons, image_width, image_height)
 
             # Calculate output frame index and path
-            frame_index = calculate_output_frame_index(frame_number, instruction_start_frame)
+            frame_index = calculate_output_frame_index(
+                frame_number, instruction_start_frame
+            )
             output_mask_path = os.path.join(
-                output_masks_dir,
-                f"{instruction_id}",
-                f"{frame_index}.png"
+                output_masks_dir, f"{instruction_id}", f"{frame_index}.png"
             )
 
             # Save mask
@@ -247,15 +252,21 @@ def process_visor_annotations(
 
             # Add mask path to annotation
             if "sparse_mask_path" not in epic_annotations_list[original_list_index]:
-                epic_annotations_list[original_list_index]["sparse_mask_path"] = [output_mask_path]
+                epic_annotations_list[original_list_index]["sparse_mask_path"] = [
+                    output_mask_path
+                ]
             else:
-                epic_annotations_list[original_list_index]["sparse_mask_path"].append(output_mask_path)
+                epic_annotations_list[original_list_index]["sparse_mask_path"].append(
+                    output_mask_path
+                )
 
 
 if __name__ == "__main__":
     # ===== Configuration (modify these paths as needed) =====
     data_root_dir = "data"
-    epic_annotations_json_path = os.path.join(data_root_dir, "epic_kitchens_100_train.json")
+    epic_annotations_json_path = os.path.join(
+        data_root_dir, "epic_kitchens_100_train.json"
+    )
     output_masks_dir = os.path.join(data_root_dir, "sparse_masks")
     visor_annotations_dir = "visor_data/GroundTruth-SparseAnnotations/annotations/train"
 
@@ -280,7 +291,7 @@ if __name__ == "__main__":
         epic_annotations_by_video,
         output_masks_dir,
         mask_width,
-        mask_height
+        mask_height,
     )
 
     # Save updated annotations with mask paths

@@ -165,7 +165,7 @@ if __name__ == "__main__":
     # ===== Configuration (modify these paths as needed) =====
     annotation_csv_path = "epic-kitchens-100-annotations/EPIC_100_train.csv"
     epic_kitchens_root_dir = "EPIC-KITCHENS"
-    output_root_dir = "data"
+    output_root_dir = "data_0"
     output_json_filename = "epic_kitchens_100_train.json"
     # ========================================================
 
