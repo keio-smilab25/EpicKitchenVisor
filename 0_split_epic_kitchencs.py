@@ -150,7 +150,7 @@ def process_epic_kitchens_annotations(annotation_csv_path, epic_kitchens_root_di
         frame_filenames = generate_frame_filenames(start_frame, stop_frame)
 
         # Copy frames to output directory
-        output_frame_dir = os.path.join(output_root_dir, "images", f"{instruction_id}")
+        output_frame_dir = os.path.join(output_root_dir, "original_images", f"{instruction_id}")
         copy_instruction_frames(source_frame_dir, frame_filenames, output_frame_dir)
 
         # Add output directory to annotation
@@ -165,7 +165,7 @@ if __name__ == "__main__":
     # ===== Configuration (modify these paths as needed) =====
     annotation_csv_path = "epic-kitchens-100-annotations/EPIC_100_train.csv"
     epic_kitchens_root_dir = "EPIC-KITCHENS"
-    output_root_dir = "data_0"
+    output_root_dir = "data"
     output_json_filename = "epic_kitchens_100_train.json"
     # ========================================================
 
