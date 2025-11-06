@@ -220,9 +220,10 @@ def process_visor_annotations(
             # Extract instruction information
             instruction_id = epic_annotation["id"]
             instruction_start_frame = epic_annotation["start_frame"]
-            target_object_name = epic_annotation[
-                "noun"
-            ]  # <-- Change this to extract different objects
+            # target_object_name = epic_annotation[
+            #     "noun"
+            # ]  # <-- Change this to extract different objects
+            target_object_name = "right hand"
             original_list_index = epic_annotation["original_index"]
 
             # Find polygons for target object
@@ -267,7 +268,7 @@ if __name__ == "__main__":
     epic_annotations_json_path = os.path.join(
         data_root_dir, "epic_kitchens_100_train.json"
     )
-    output_masks_dir = os.path.join(data_root_dir, "sparse_masks")
+    output_masks_dir = os.path.join(data_root_dir, "original_sparse_masks")
     visor_annotations_dir = "visor_data/GroundTruth-SparseAnnotations/annotations/train"
 
     # Mask resolution (EPIC-KITCHENS resolution)
