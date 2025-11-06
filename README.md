@@ -78,6 +78,28 @@ python 1_parse_visor_dataset.py
 target_object = "left hand"  # 左手のマスクを抽出
 ```
 
+### ステップ 3: フレームレートのダウンサンプリング (オプション)
+
+```bash
+python 2_down_sampling_fps.py
+```
+
+- 60 FPS の画像・マスクシーケンスを 15 FPS にダウンサンプリング
+- 元データは `data/original_images/`, `data/original_masks/` に自動的にリネーム
+- 出力: ダウンサンプリング後のデータが `data/images/`, `data/masks/` に保存
+
+**デフォルト設定**:
+- `original_fps`: 60
+- `target_fps`: 15
+
+**カスタマイズ**:
+
+```python
+# 2_down_sampling_fps.py:42-43 を変更
+original_fps = 60
+target_fps = 10  # 例: 10 FPS にダウンサンプリング
+```
+
 ## 出力フォーマット
 
 ### JSON 構造
