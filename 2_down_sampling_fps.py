@@ -44,7 +44,7 @@ def down_sample_sequence(
 
 
 if __name__ == "__main__":
-    target_dir = "data"
+    target_dir = "data_left_hand"
     annotation_file_name = "epic_kitchens_100_train.json"
     original_fps = 60
     target_fps = 15

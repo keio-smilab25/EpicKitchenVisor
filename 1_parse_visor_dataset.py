@@ -223,7 +223,7 @@ def process_visor_annotations(
             # target_object_name = epic_annotation[
             #     "noun"
             # ]  # <-- Change this to extract different objects
-            target_object_name = "right hand"
+            target_object_name = "left hand"
             original_list_index = epic_annotation["original_index"]
 
             # Find polygons for target object
@@ -264,7 +264,7 @@ def process_visor_annotations(
 
 if __name__ == "__main__":
     # ===== Configuration (modify these paths as needed) =====
-    data_root_dir = "data"
+    data_root_dir = "data_left_hand"
     epic_annotations_json_path = os.path.join(
         data_root_dir, "epic_kitchens_100_train.json"
     )

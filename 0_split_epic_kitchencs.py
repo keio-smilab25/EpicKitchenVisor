@@ -69,10 +69,7 @@ def get_source_frame_dir(epic_kitchens_root_dir, participant_id, video_id):
         Path to the frame directory
     """
     frame_dir = os.path.join(
-        epic_kitchens_root_dir,
-        participant_id,
-        "rgb_frames",
-        video_id
+        epic_kitchens_root_dir, participant_id, "rgb_frames", video_id
     )
     return frame_dir
 
@@ -113,7 +110,9 @@ def copy_instruction_frames(source_frame_dir, frame_filenames, output_frame_dir)
         shutil.copy(source_path, output_path)
 
 
-def process_epic_kitchens_annotations(annotation_csv_path, epic_kitchens_root_dir, output_root_dir):
+def process_epic_kitchens_annotations(
+    annotation_csv_path, epic_kitchens_root_dir, output_root_dir
+):
     """
     Process EPIC-KITCHENS annotations and extract frames for each instruction.
 
@@ -131,14 +130,20 @@ def process_epic_kitchens_annotations(annotation_csv_path, epic_kitchens_root_di
     all_annotations = []
 
     # Process each instruction
-    for instruction_id, row in tqdm(annotations_df.iterrows(), total=len(annotations_df), desc="Processing instructions"):
+    for instruction_id, row in tqdm(
+        annotations_df.iterrows(),
+        total=len(annotations_df),
+        desc="Processing instructions",
+    ):
         # Create annotation dictionary
         annotation_dict = create_annotation_dict(row, instruction_id)
 
         # Get source frame directory
         participant_id = annotation_dict["participant_id"]
         video_id = annotation_dict["video_id"]
-        source_frame_dir = get_source_frame_dir(epic_kitchens_root_dir, participant_id, video_id)
+        source_frame_dir = get_source_frame_dir(
+            epic_kitchens_root_dir, participant_id, video_id
+        )
 
         # Skip if source frames don't exist
         if not os.path.exists(source_frame_dir):
@@ -150,7 +155,9 @@ def process_epic_kitchens_annotations(annotation_csv_path, epic_kitchens_root_di
         frame_filenames = generate_frame_filenames(start_frame, stop_frame)
 
         # Copy frames to output directory
-        output_frame_dir = os.path.join(output_root_dir, "original_images", f"{instruction_id}")
+        output_frame_dir = os.path.join(
+            output_root_dir, "original_images", f"{instruction_id}"
+        )
         copy_instruction_frames(source_frame_dir, frame_filenames, output_frame_dir)
 
         # Add output directory to annotation
@@ -165,7 +172,7 @@ if __name__ == "__main__":
     # ===== Configuration (modify these paths as needed) =====
     annotation_csv_path = "epic-kitchens-100-annotations/EPIC_100_train.csv"
     epic_kitchens_root_dir = "EPIC-KITCHENS"
-    output_root_dir = "data"
+    output_root_dir = "data_left_hand"
     output_json_filename = "epic_kitchens_100_train.json"
     # ========================================================
 
@@ -174,9 +181,7 @@ if __name__ == "__main__":
 
     # Process annotations and extract frames
     all_annotations = process_epic_kitchens_annotations(
-        annotation_csv_path,
-        epic_kitchens_root_dir,
-        output_root_dir
+        annotation_csv_path, epic_kitchens_root_dir, output_root_dir
     )
 
     # Save annotations to JSON
